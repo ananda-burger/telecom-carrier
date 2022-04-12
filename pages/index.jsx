@@ -1,18 +1,33 @@
 import * as phonesSlice from '../store/slices/phonesSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
   const phones = useSelector(phonesSlice.selectPhones)
-  const dispatch = useDispatch()
 
   return (
     <div>
-      <button onClick={() => dispatch(phonesSlice.add('number'))}>
-        Add phone number
-      </button>
-      <ul>
-        {phones.map(p => <li key={p}>{p}</li>)}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th>Monthly Price</th>
+            <th>Setup Price</th>
+            <th>Currency</th>
+          </tr>
+        </thead>
+        <tbody>
+          {phones.map(phone => {
+            return (
+              <tr key={phone.id}>
+                <td>{phone.value}</td>
+                <td>{phone.monthlyPrice}</td>
+                <td>{phone.setupPrice}</td>
+                <td>{phone.currency}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }
