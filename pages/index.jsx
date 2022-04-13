@@ -1,8 +1,14 @@
 import * as phonesSlice from '../store/slices/phonesSlice'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 export default function Home() {
   const phones = useSelector(phonesSlice.selectPhones)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(phonesSlice.fetch())
+  }, [])
 
   return (
     <div>

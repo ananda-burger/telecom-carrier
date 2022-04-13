@@ -1,41 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import * as api from '../../service/mockApi'
 
 const initialState = {
-  list: [
-    {
-      "id": 1,
-      "value": "+55 84 91234-4321",
-      "monthlyPrice": "0.03",
-      "setupPrice": "3.40",
-      "currency": "U$"
-    },
-    {
-      "id": 2,
-      "value": "+55 00 00000-0000",
-      "monthlyPrice": "0.00",
-      "setupPrice": "0.00",
-      "currency": "U$"
-    },
-    {
-      "id": 3,
-      "value": "+55 11 11111-1111",
-      "monthlyPrice": "0.01",
-      "setupPrice": "1.10",
-      "currency": "U$"
-    },
-    {
-      "id": 4,
-      "value": "+55 22 22222-2222",
-      "monthlyPrice": "0.02",
-      "setupPrice": "2.20",
-      "currency": "U$"
-    }
-  ]
+  list: []
 }
 
 export const selectPhones = (rootState) => {
   return rootState.phones.list
 }
+
+export const fetch = createAsyncThunk(
+  'phones/fetch',
+  () => {
+    return api.fetchNumbers()
+  }
+)
 
 const slice = createSlice({
   name: 'phonesSlice',
@@ -44,6 +23,18 @@ const slice = createSlice({
     add: (state, action) => {
       state.list.push(action.payload)
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetch.fulfilled, (state, action) => {
+        state.list = action.payload
+      })
+      .addCase(fetch.pending, (_state, _action) => {
+        //TODO: spinner while loading phones
+      })
+      .addCase(fetch.rejected, (_state, action) => {
+        console.log(action.error)
+      })
   }
 })
 
