@@ -1,4 +1,4 @@
-const NUMBERS_FOR_SALE = [
+const INITIAL_NUMBERS_FOR_SALE = [
   {
     "id": 1,
     "value": "+55 84 91234-4321",
@@ -74,9 +74,17 @@ const NUMBERS_FOR_SALE = [
 const fetchNumbers = () => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
-      resolve(NUMBERS_FOR_SALE)
+      resolve(INITIAL_NUMBERS_FOR_SALE)
     }, 2000)
   })
 }
 
-export { fetchNumbers }
+const removeNumbers = (id) => {
+  return new Promise((resolve, _reject) => {
+    setTimeout(() => {
+      resolve(id)
+    }, 500)
+  })
+}
+
+export { fetchNumbers, removeNumbers }

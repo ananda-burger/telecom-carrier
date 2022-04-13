@@ -29,6 +29,11 @@ export default function Home() {
                 <td>{phone.monthlyPrice}</td>
                 <td>{phone.setupPrice}</td>
                 <td>{phone.currency}</td>
+                <td>
+                  <button onClick={() => dispatch(phonesSlice.remove(phone.id))}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             )
           })}
