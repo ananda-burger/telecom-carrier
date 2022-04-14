@@ -100,6 +100,10 @@ const addNumber = (phone) => {
 const removeNumbers = (id) => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
+      const phones = read()
+      const index = phones.findIndex(p => p.id === id)
+
+      write([...phones.slice(0, index), ...phones.slice(index + 1)])
       resolve(id)
     }, 500)
   })
