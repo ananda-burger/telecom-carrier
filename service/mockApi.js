@@ -36,4 +36,17 @@ const removeNumbers = (id) => {
   })
 }
 
-export { fetchNumbers, addNumber, removeNumbers }
+const editNumber = (phone) => {
+  return new Promise((resolve, _reject) => {
+    setTimeout(() => {
+      const phones = read()
+      const index = phones.findIndex(p => p.id === phone.id)
+      phones[index] = phone
+
+      write(phones)
+      resolve(phones)
+    }, 500)
+  })
+}
+
+export { fetchNumbers, addNumber, removeNumbers, editNumber }

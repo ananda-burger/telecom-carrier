@@ -23,6 +23,13 @@ export const add = createAsyncThunk(
   }
 )
 
+export const edit = createAsyncThunk(
+  'phones/edit',
+  (phone) => {
+    return api.editNumber(phone)
+  }
+)
+
 export const remove = createAsyncThunk(
   'phones/remove',
   (id) => {
@@ -64,6 +71,17 @@ const slice = createSlice({
         // TODO: disable form
       })
       .addCase(add.rejected, (_state, action) => {
+        // TODO: display error message
+        console.log(action.error)
+      })
+
+      .addCase(edit.fulfilled, (state, action) => {
+        state.list = action.payload
+      })
+      .addCase(edit.pending, (_state, _action) => {
+        // TODO: disable form
+      })
+      .addCase(edit.rejected, (_state, action) => {
         // TODO: display error message
         console.log(action.error)
       })

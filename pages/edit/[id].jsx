@@ -1,13 +1,18 @@
-import { Form, Field } from 'react-final-form'
-import { useDispatch } from 'react-redux'
-import Link from 'next/link'
-import * as phonesSlice from '../store/slices/phonesSlice'
+import { useRouter } from 'next/router'
 
-const Add = () => {
+import { Form, Field } from 'react-final-form'
+import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link'
+import * as phonesSlice from '../../store/slices/phonesSlice'
+
+const Edit = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const phones = useSelector(phonesSlice.selectPhones)
+  const currentPhone = phones.find(p => p.id === parseInt(router.query.id))
 
   const onSubmit = phone => {
-    dispatch(phonesSlice.add(phone))
+    dispatch(phonesSlice.edit(phone))
   }
 
   const required = value => (value ? undefined : 'Required')
@@ -19,6 +24,7 @@ const Add = () => {
   return (
     <Form
       onSubmit={onSubmit}
+      initialValues={currentPhone}
       render={({ handleSubmit, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
           <Field
@@ -95,4 +101,4 @@ const Add = () => {
   )
 }
 
-export default Add
+export default Edit

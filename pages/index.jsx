@@ -31,6 +31,11 @@ export default function Home() {
                 <td>{phone.setupPrice}</td>
                 <td>{phone.currency}</td>
                 <td>
+                  <Link href={`/edit/${phone.id}`}>
+                    <a> Edit </a>
+                  </Link>
+                </td>
+                <td>
                   <button onClick={() => dispatch(phonesSlice.remove(phone.id))}>
                     Delete
                   </button>
