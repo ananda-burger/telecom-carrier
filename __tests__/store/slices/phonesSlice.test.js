@@ -14,15 +14,4 @@ describe('phonesSlice', () => {
 
     expect(slice.selectPhones(rootState)).toEqual(expected)
   })
-
-  it('Adds a phone to empty state', () => {
-    const initialState = {
-      list: []
-    }
-
-    const action = slice.add({ phone: '12345' })
-
-    expect(slice.reducer(initialState, action))
-      .toEqual({ list: [{ phone: '12345' }] })
-  })
 })
