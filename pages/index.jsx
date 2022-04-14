@@ -7,9 +7,9 @@ export default function Home() {
   const phones = useSelector(phonesSlice.selectPhones)
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(phonesSlice.fetch())
-  // }, [])
+  useEffect(() => {
+    dispatch(phonesSlice.fetch())
+  }, [])
 
   return (
     <div>
