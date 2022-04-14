@@ -71,6 +71,14 @@ const INITIAL_NUMBERS_FOR_SALE = [
   },
 ]
 
+const write = (phones) => {
+  localStorage.setItem('phones', JSON.stringify(phones))
+}
+
+const read = () => {
+  return JSON.parse(localStorage.getItem('phones')) || []
+}
+
 const fetchNumbers = () => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
@@ -82,7 +90,9 @@ const fetchNumbers = () => {
 const addNumber = (phone) => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
-      resolve({ ...phone, id: Math.floor(Math.random() * 1000) })
+      const newPhone = { ...phone, id: Math.floor(Math.random() * 1000) }
+      write(read().concat(newPhone))
+      resolve(newPhone)
     }, 500)
   })
 }
