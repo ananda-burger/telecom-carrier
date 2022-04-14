@@ -2,17 +2,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../service/mockApi'
 
 const initialState = {
-  list: []
+  list: [],
+  totalCount: 0
 }
 
 export const selectPhones = (rootState) => {
   return rootState.phones.list
 }
 
+export const selectTotalCount = (rootState) => {
+  return rootState.phones.totalCount
+}
+
 export const fetch = createAsyncThunk(
   'phones/fetch',
-  () => {
-    return api.fetchNumbers()
+  ({ page }) => {
+    return api.fetchNumbers({ page })
   }
 )
 
@@ -44,7 +49,8 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetch.fulfilled, (state, action) => {
-        state.list = action.payload
+        state.list = action.payload.phones
+        state.totalCount = action.payload.totalCount
       })
       .addCase(fetch.pending, (_state, _action) => {
         // TODO: spinner while loading phones
@@ -56,6 +62,7 @@ const slice = createSlice({
       .addCase(remove.fulfilled, (state, action) => {
         const index = state.list.findIndex(p => p.id === action.payload)
         state.list.splice(index, 1)
+        state.totalCount -= 1
       })
       .addCase(remove.pending, (_state, _action) => {
         // TODO: spinner
@@ -66,6 +73,7 @@ const slice = createSlice({
 
       .addCase(add.fulfilled, (state, action) => {
         state.list.push(action.payload)
+        state.totalCount += 1
       })
       .addCase(add.pending, (_state, _action) => {
         // TODO: disable form
