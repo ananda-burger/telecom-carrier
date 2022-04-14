@@ -12,14 +12,20 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      <table>
-        <thead>
+    <div className='container-lg'>
+      <h1 className='display-5'>Phones list</h1>
+      <Link href="/add">
+        <button className='btn btn-primary'>New</button>
+      </Link>
+      <table className='table table-striped table-borderless table-hover table=responsive'>
+        <thead className="thead-light">
           <tr>
             <th>Value</th>
             <th>Monthly Price</th>
             <th>Setup Price</th>
             <th>Currency</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -32,22 +38,26 @@ export default function Home() {
                 <td>{phone.currency}</td>
                 <td>
                   <Link href={`/edit/${phone.id}`}>
-                    <a> Edit </a>
+                    <a className='link-primary'>Edit</a>
                   </Link>
                 </td>
                 <td>
-                  <button onClick={() => dispatch(phonesSlice.remove(phone.id))}>
+                  <a className="link-primary" onClick={() => dispatch(phonesSlice.remove(phone.id))}>
                     Delete
-                  </button>
+                  </a>
                 </td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <Link href="/add">
-        <a> ADD PHONE </a>
-      </Link>
+      <ul className="pagination">
+        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+        <li className="page-item"><a className="page-link" href="#">1</a></li>
+        <li className="page-item"><a className="page-link" href="#">2</a></li>
+        <li className="page-item"><a className="page-link" href="#">3</a></li>
+        <li className="page-item"><a className="page-link" href="#">Next</a></li>
+      </ul>
     </div>
   )
 }
