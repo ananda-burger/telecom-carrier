@@ -16,6 +16,13 @@ export const fetch = createAsyncThunk(
   }
 )
 
+export const add = createAsyncThunk(
+  'phones/add',
+  (phone) => {
+    return api.addNumber(phone)
+  }
+)
+
 export const remove = createAsyncThunk(
   'phones/remove',
   (id) => {
@@ -26,35 +33,41 @@ export const remove = createAsyncThunk(
 const slice = createSlice({
   name: 'phonesSlice',
   initialState,
-  reducers: {
-    add: (state, action) => {
-      state.list.push(action.payload)
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetch.fulfilled, (state, action) => {
         state.list = action.payload
       })
       .addCase(fetch.pending, (_state, _action) => {
-        //TODO: spinner while loading phones
+        // TODO: spinner while loading phones
       })
       .addCase(fetch.rejected, (_state, action) => {
         console.log(action.error)
       })
+
       .addCase(remove.fulfilled, (state, action) => {
         const index = state.list.findIndex(p => p.id === action.payload)
         state.list.splice(index, 1)
       })
       .addCase(remove.pending, (_state, _action) => {
-        //TODO: spinner
+        // TODO: spinner
       })
       .addCase(remove.rejected, (_state, action) => {
         console.log(action.error)
       })
+
+      .addCase(add.fulfilled, (state, action) => {
+        state.list.push(action.payload)
+      })
+      .addCase(add.pending, (_state, _action) => {
+        // TODO: disable form
+      })
+      .addCase(add.rejected, (_state, action) => {
+        // TODO: display error message
+        console.log(action.error)
+      })
   }
 })
-
-export const { add } = slice.actions
 
 export const { reducer } = slice

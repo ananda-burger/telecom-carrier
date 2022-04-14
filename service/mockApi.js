@@ -79,6 +79,14 @@ const fetchNumbers = () => {
   })
 }
 
+const addNumber = (phone) => {
+  return new Promise((resolve, _reject) => {
+    setTimeout(() => {
+      resolve({ ...phone, id: Math.floor(Math.random() * 1000) })
+    }, 500)
+  })
+}
+
 const removeNumbers = (id) => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
@@ -87,4 +95,4 @@ const removeNumbers = (id) => {
   })
 }
 
-export { fetchNumbers, removeNumbers }
+export { fetchNumbers, addNumber, removeNumbers }
