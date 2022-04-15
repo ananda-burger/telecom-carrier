@@ -30,8 +30,7 @@ const nextLink = ({isReady, page, nPages}) => {
 }
 
 export default function Pagination() {
-  const totalCount = useSelector(phonesSlice.selectTotalCount)
-  const nPages = Math.ceil(totalCount / 5)
+  const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const router = useRouter()
   const {isReady, query} = router
   // TODO: make sure the page is a valid number and less than or equal to nPages.

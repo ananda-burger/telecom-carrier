@@ -12,8 +12,8 @@ export const selectPhones = (rootState) => {
   return rootState.phones.list
 }
 
-export const selectTotalCount = (rootState) => {
-  return rootState.phones.totalCount
+export const selectNumberOfPages = (rootState) => {
+  return Math.ceil(rootState.phones.totalCount / PER_PAGE)
 }
 
 export const fetch = createAsyncThunk(
