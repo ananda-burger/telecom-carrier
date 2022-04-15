@@ -1,8 +1,9 @@
-import Link from 'next/link'
 import * as phonesSlice from '../store/slices/phonesSlice'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import classNames from 'classnames'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { times } from '../lib/util'
 
 const previousLink = ({isReady, page}) => {
   const hasPreviousPage = page > 1
@@ -29,6 +30,16 @@ const nextLink = ({isReady, page, nPages}) => {
   )
 }
 
+const pageLink = (page) => {
+  return (
+    <li key={page} className='page-item'>
+      <Link href={{ pathname: '/', query: { page } }}>
+        <a className='page-link'>{page}</a>
+      </Link>
+    </li>
+  )
+}
+
 export default function Pagination() {
   const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const router = useRouter()
@@ -38,16 +49,7 @@ export default function Pagination() {
   return (
     <ul className="pagination">
       {previousLink({ isReady, page })}
-      {[...Array(nPages).keys()].map(index => {
-        const page = index + 1
-        return (
-          <li key={page} className='page-item'>
-            <Link href={{ pathname: '/', query: { page } }}>
-              <a className='page-link'>{page}</a>
-            </Link>
-          </li>
-        )
-      })}
+      {times(nPages, i => pageLink(i + 1))}
       {nextLink({ isReady, page, nPages })}
     </ul>
   )
