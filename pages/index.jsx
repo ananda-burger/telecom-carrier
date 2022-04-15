@@ -7,10 +7,11 @@ import Pagination from '../components/Pagination'
 
 export default function Home() {
   const phones = useSelector(phonesSlice.selectPhones)
+  const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const dispatch = useDispatch()
   const router = useRouter()
   const {isReady, query} = router
-  const page = parseInt(query.page, 10) || 1
+  const page = Math.min(nPages, (parseInt(query.page, 10) || 1))
 
   useEffect(() => {
     if (isReady) {

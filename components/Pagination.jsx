@@ -33,8 +33,7 @@ export default function Pagination() {
   const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const router = useRouter()
   const {isReady, query} = router
-  // TODO: make sure the page is a valid number and less than or equal to nPages.
-  const page = parseInt(query.page, 10) || 1
+  const page = Math.min(nPages, (parseInt(query.page, 10) || 1))
 
   return (
     <ul className="pagination">
