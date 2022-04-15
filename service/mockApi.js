@@ -1,5 +1,3 @@
-const PER_PAGE = 5
-
 const write = (phones) => {
   localStorage.setItem('phones', JSON.stringify(phones))
 }
@@ -8,13 +6,13 @@ const read = () => {
   return JSON.parse(localStorage.getItem('phones')) || []
 }
 
-const fetchNumbers = ({page}) => {
-  const index = PER_PAGE * (page - 1)
+const fetchNumbers = ({page, perPage}) => {
+  const index = perPage * (page - 1)
   const allPhones = read()
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
       resolve({
-        phones: allPhones.slice(index, index + PER_PAGE),
+        phones: allPhones.slice(index, index + perPage),
         totalCount: allPhones.length
       })
     }, 100)

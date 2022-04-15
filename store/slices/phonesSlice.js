@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../service/mockApi'
 
+const PER_PAGE = 5
+
 const initialState = {
   list: [],
   totalCount: 0
@@ -17,7 +19,7 @@ export const selectTotalCount = (rootState) => {
 export const fetch = createAsyncThunk(
   'phones/fetch',
   ({ page }) => {
-    return api.fetchNumbers({ page })
+    return api.fetchNumbers({ page, perPage: PER_PAGE })
   }
 )
 
