@@ -35,7 +35,7 @@ export default function Pagination() {
   const router = useRouter()
   const {isReady, query} = router
   // TODO: make sure the page is a valid number and less than or equal to nPages.
-  const page = parseInt(query.page, 10)
+  const page = parseInt(query.page, 10) || 1
 
   return (
     <ul className="pagination">
