@@ -4,7 +4,9 @@ export default function Layout({children}) {
   return (
     <div>
       <NavigationBar />
-      <div>{children}</div>
+      <div className='container-lg mt-3'>
+        {children}
+      </div>
     </div>
   )
 }
