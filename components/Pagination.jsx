@@ -30,9 +30,9 @@ const nextLink = ({isReady, page, nPages}) => {
   )
 }
 
-const pageLink = (page) => {
+const pageLink = (page, currentPage) => {
   return (
-    <li key={page} className='page-item'>
+    <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`} >
       <Link href={{ pathname: '/', query: { page } }}>
         <a className='page-link'>{page}</a>
       </Link>
@@ -49,7 +49,7 @@ export default function Pagination() {
   return (
     <ul className="pagination">
       {previousLink({ isReady, page })}
-      {times(nPages, i => pageLink(i + 1))}
+      {times(nPages, i => pageLink(i + 1, page))}
       {nextLink({ isReady, page, nPages })}
     </ul>
   )
