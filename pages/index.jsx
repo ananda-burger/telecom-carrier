@@ -24,11 +24,13 @@ export default function Home() {
     <>
       <Layout>
         <div className='container-lg mt-3'>
+          <div className='d-flex justify-content-between'>
           <h1 className='display-6'>Numbers for sale</h1>
           <Link href="/add">
             <button className='btn btn-primary'>New</button>
           </Link>
-          <table className='table table-striped table-borderless table-hover table=responsive'>
+          </div>
+          <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
             <thead className="thead-light">
               <tr>
                 <th>Phone number</th>

@@ -25,7 +25,7 @@ const Add = () => {
           onSubmit={onSubmit}
           render={({ handleSubmit, submitting, pristine, invalid }) => (
             <form onSubmit={handleSubmit}>
-              <div className='mb-4 w-50'>
+              <div className='mt-3 mb-4 w-50'>
                 <Field
                   name="value"
                   component="input"

@@ -32,7 +32,7 @@ const Edit = () => {
           initialValues={currentPhone}
           render={({ handleSubmit, submitting, pristine, invalid }) => (
             <form onSubmit={handleSubmit}>
-              <div className='mb-4'>
+              <div className='mt-3 mb-4'>
                 <Field
                   name="value"
                   component="input"
