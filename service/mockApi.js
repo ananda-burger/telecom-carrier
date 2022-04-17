@@ -1,3 +1,5 @@
+const RESPONSE_TIME = 2000
+
 const write = (phones) => {
   localStorage.setItem('phones', JSON.stringify(phones))
 }
@@ -15,7 +17,7 @@ const fetchNumbers = ({page, perPage}) => {
         phones: allPhones.slice(index, index + perPage),
         totalCount: allPhones.length
       })
-    }, 100)
+    }, RESPONSE_TIME)
   })
 }
 
@@ -25,7 +27,7 @@ const addNumber = (phone) => {
       const newPhone = { ...phone, id: Math.floor(Math.random() * 1000) }
       write(read().concat(newPhone))
       resolve(newPhone)
-    }, 500)
+    }, RESPONSE_TIME)
   })
 }
 
@@ -37,7 +39,7 @@ const removeNumbers = (id) => {
 
       write([...phones.slice(0, index), ...phones.slice(index + 1)])
       resolve(id)
-    }, 500)
+    }, RESPONSE_TIME)
   })
 }
 
@@ -50,7 +52,7 @@ const editNumber = (phone) => {
 
       write(phones)
       resolve(phones)
-    }, 500)
+    }, RESPONSE_TIME)
   })
 }
 
