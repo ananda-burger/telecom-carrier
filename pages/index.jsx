@@ -9,6 +9,7 @@ import Layout from '../components/Layout'
 export default function Home() {
   const phones = useSelector(phonesSlice.selectPhones)
   const nPages = useSelector(phonesSlice.selectNumberOfPages)
+  const isLoading = useSelector(phonesSlice.selectIsLoading)
   const dispatch = useDispatch()
   const router = useRouter()
   const {isReady, query} = router
@@ -29,40 +30,48 @@ export default function Home() {
             <button className='btn btn-primary'>New</button>
           </Link>
         </div>
-        <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
-          <thead className="thead-light">
-            <tr>
-              <th>Phone Number</th>
-              <th>Monthly Price</th>
-              <th>Setup Price</th>
-              <th>Currency</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {phones.map(phone => {
-              return (
-                <tr key={phone.id}>
-                  <td>{phone.value}</td>
-                  <td>{phone.monthlyPrice}</td>
-                  <td>{phone.setupPrice}</td>
-                  <td>{phone.currency}</td>
-                  <td>
-                    <Link href={`/edit/${phone.id}`}>
-                      <a className='link-primary'>Edit</a>
-                    </Link>
-                  </td>
-                  <td>
-                    <a className="link-primary" onClick={() => dispatch(phonesSlice.remove(phone.id))}>
-                      Delete
-                    </a>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        {isLoading ? (
+          <div className='w-100 d-flex justify-content-center mt-5'>
+            <span className="spinner-border text-primary" role="status" aria-hidden="true"></span>
+          </div>
+        ) : (
+          <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
+            <thead className="thead-light">
+              <tr>
+                <th>Phone Number</th>
+                <th>Monthly Price</th>
+                <th>Setup Price</th>
+                <th>Currency</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <>
+              <tbody>
+                {phones.map(phone => {
+                  return (
+                    <tr key={phone.id}>
+                      <td>{phone.value}</td>
+                      <td>{phone.monthlyPrice}</td>
+                      <td>{phone.setupPrice}</td>
+                      <td>{phone.currency}</td>
+                      <td>
+                        <Link href={`/edit/${phone.id}`}>
+                          <a className='link-primary'>Edit</a>
+                        </Link>
+                      </td>
+                      <td>
+                        <a className="link-primary" onClick={() => dispatch(phonesSlice.remove(phone.id))}>
+                          Delete
+                        </a>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </>
+          </table>
+        )}
         <Pagination />
       </Layout>
     </>

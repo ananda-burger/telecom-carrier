@@ -6,6 +6,7 @@ const PER_PAGE = 20
 const initialState = {
   list: [],
   totalCount: 0,
+  isLoading: false,
   form: {
     isSubmitting: false,
   }
@@ -13,6 +14,10 @@ const initialState = {
 
 export const selectPhones = (rootState) => {
   return rootState.phones.list
+}
+
+export const selectIsLoading = (rootState) => {
+  return rootState.phones.isLoading
 }
 
 export const selectNumberOfPages = (rootState) => {
@@ -60,11 +65,13 @@ const slice = createSlice({
       .addCase(fetch.fulfilled, (state, action) => {
         state.list = action.payload.phones
         state.totalCount = action.payload.totalCount
+        state.isLoading = false
       })
-      .addCase(fetch.pending, (_state, _action) => {
-        // TODO: spinner while loading phones
+      .addCase(fetch.pending, (state, _action) => {
+        state.isLoading = true
       })
-      .addCase(fetch.rejected, (_state, action) => {
+      .addCase(fetch.rejected, (state, action) => {
+        state.isLoading = false
         console.log(action.error)
       })
 
