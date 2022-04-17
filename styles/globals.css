@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+svg:hover path {
+    fill: #0d6efd;
+}
