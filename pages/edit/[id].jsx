@@ -30,9 +30,9 @@ const Edit = () => {
         <Form
           onSubmit={onSubmit}
           initialValues={currentPhone}
-          render={({ handleSubmit, submitting, pristine, invalid }) => (
+          render={({ handleSubmit, pristine, invalid }) => (
             <form onSubmit={handleSubmit}>
-              <div className='mt-3 mb-4'>
+              <div className='mt-3 mb-4 w-50'>
                 <Field
                   name="value"
                   component="input"
@@ -54,7 +54,7 @@ const Edit = () => {
                   )}
                 </Field>
               </div>
-              <div className='mb-4'>
+              <div className='mb-4 w-50'>
                 <Field
                   name="monthlyPrice"
                   component="input"
@@ -76,7 +76,7 @@ const Edit = () => {
                   )}
                 </Field>
               </div>
-              <div className='mb-4'>
+              <div className='mb-4 w-50'>
                 <Field
                   name="setupPrice"
                   component="input"
@@ -98,7 +98,7 @@ const Edit = () => {
                   )}
                 </Field>
               </div>
-              <div className='mb-4'>
+              <div className='mb-4 w-50'>
                 <Field
                   name="currency"
                   component="input"
@@ -120,16 +120,21 @@ const Edit = () => {
                   )}
                 </Field>
               </div>
-              {isSubmitting ? (
-                <button className="btn btn-primary" type="button" disabled>
-                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  <span className="visually-hidden">Loading...</span>
+              <div className='d-flex justify-content-between w-50'>
+                {isSubmitting ? (
+                  <button className="btn btn-primary" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span className="visually-hidden">Loading...</span>
+                  </button>
+                ) : (
+                  <button type="submit" className='btn btn-primary' disabled={isSubmitting || pristine || invalid}>
+                    Submit
+                  </button>
+                )}
+                <button type='button' onClick={() => router.back()} className='btn btn-secondary ' disabled={isSubmitting}>
+                  Cancel
                 </button>
-              ) : (
-                <button type="submit" className='btn btn-primary' disabled={submitting || pristine || invalid}>
-                  Submit
-                </button>
-              )}
+              </div>
               <div className='mt-5'>
                 <Link href="/">
                   <a> RETURN HOME </a>

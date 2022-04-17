@@ -1,5 +1,6 @@
 import { Form, Field } from 'react-final-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import * as phonesSlice from '../store/slices/phonesSlice'
 import Layout from '../components/Layout'
@@ -7,6 +8,7 @@ import Layout from '../components/Layout'
 const Add = () => {
   const dispatch = useDispatch()
   const isSubmitting = useSelector(phonesSlice.selectIsSubmitting)
+  const router = useRouter()
 
   const onSubmit = phone => {
     dispatch(phonesSlice.add(phone))
@@ -23,7 +25,7 @@ const Add = () => {
         <h1 className='display-6'>New number for sale</h1>
         <Form
           onSubmit={onSubmit}
-          render={({ handleSubmit, submitting, pristine, invalid }) => (
+          render={({ handleSubmit, pristine, invalid }) => (
             <form onSubmit={handleSubmit}>
               <div className='mt-3 mb-4 w-50'>
                 <Field
@@ -113,16 +115,21 @@ const Add = () => {
                   )}
                 </Field>
               </div>
-              {isSubmitting ? (
-                <button className="btn btn-primary" type="button" disabled>
-                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  <span className="visually-hidden">Loading...</span>
+              <div className='d-flex justify-content-between w-50'>
+                {isSubmitting ? (
+                  <button className="btn btn-primary" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span className="visually-hidden">Loading...</span>
+                  </button>
+                ) : (
+                  <button type="submit" className='btn btn-primary' disabled={isSubmitting || pristine || invalid}>
+                    Add
+                  </button>
+                )}
+                <button type='button' onClick={() => router.back()} className='btn btn-secondary ' disabled={isSubmitting}>
+                  Cancel
                 </button>
-              ) : (
-                <button type="submit" className='btn btn-primary' disabled={submitting || pristine || invalid}>
-                  Add
-                </button>
-              )}
+              </div>
               <div className='mt-5'>
                 <Link href="/">
                   <a> RETURN HOME </a>
