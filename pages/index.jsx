@@ -33,7 +33,7 @@ export default function Home() {
           <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
             <thead className="thead-light">
               <tr>
-                <th>Phone number</th>
+                <th>Phone Number</th>
                 <th>Monthly Price</th>
                 <th>Setup Price</th>
                 <th>Currency</th>
