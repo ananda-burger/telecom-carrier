@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../service/mockApi'
 
-const PER_PAGE = 5
+const PER_PAGE = 20
 
 const initialState = {
   list: [],
