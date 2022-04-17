@@ -1,10 +1,11 @@
 import { Form, Field } from 'react-final-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import * as phonesSlice from '../store/slices/phonesSlice'
 
 const Add = () => {
   const dispatch = useDispatch()
+  const isSubmitting = useSelector(phonesSlice.selectIsSubmitting)
 
   const onSubmit = phone => {
     dispatch(phonesSlice.add(phone))
@@ -80,9 +81,16 @@ const Add = () => {
               </div>
             )}
           </Field>
-          <button type="submit" disabled={submitting || pristine || invalid}>
-            Submit
-          </button>
+          {isSubmitting ? (
+            <button class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="visually-hidden">Loading...</span>
+            </button>
+          ) : (
+            <button type="submit" disabled={submitting || pristine || invalid}>
+              Submit
+            </button>
+          )}
           <div>
             <Link href="/">
               <a> RETURN HOME </a>

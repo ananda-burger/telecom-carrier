@@ -5,7 +5,10 @@ const PER_PAGE = 5
 
 const initialState = {
   list: [],
-  totalCount: 0
+  totalCount: 0,
+  form: {
+    isSubmitting: false,
+  }
 }
 
 export const selectPhones = (rootState) => {
@@ -14,6 +17,10 @@ export const selectPhones = (rootState) => {
 
 export const selectNumberOfPages = (rootState) => {
   return Math.ceil(rootState.phones.totalCount / PER_PAGE)
+}
+
+export const selectIsSubmitting = (rootState) => {
+  return rootState.phones.form.isSubmitting
 }
 
 export const fetch = createAsyncThunk(
@@ -76,23 +83,29 @@ const slice = createSlice({
       .addCase(add.fulfilled, (state, action) => {
         state.list.push(action.payload)
         state.totalCount += 1
+        state.form.isSubmitting = false
       })
-      .addCase(add.pending, (_state, _action) => {
+      .addCase(add.pending, (state, _action) => {
         // TODO: disable form
+        state.form.isSubmitting = true
       })
-      .addCase(add.rejected, (_state, action) => {
+      .addCase(add.rejected, (state, action) => {
         // TODO: display error message
+        state.form.isSubmitting = false
         console.log(action.error)
       })
 
       .addCase(edit.fulfilled, (state, action) => {
         state.list = action.payload
+        state.form.isSubmitting = false
       })
-      .addCase(edit.pending, (_state, _action) => {
+      .addCase(edit.pending, (state, _action) => {
         // TODO: disable form
+        state.form.isSubmitting = true
       })
-      .addCase(edit.rejected, (_state, action) => {
+      .addCase(edit.rejected, (state, action) => {
         // TODO: display error message
+        state.form.isSubmitting = false
         console.log(action.error)
       })
   }

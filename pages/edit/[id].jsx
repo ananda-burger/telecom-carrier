@@ -9,6 +9,7 @@ const Edit = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const phones = useSelector(phonesSlice.selectPhones)
+  const isSubmitting = useSelector(phonesSlice.selectIsSubmitting)
   const currentPhone = phones.find(p => p.id === parseInt(router.query.id))
 
   const onSubmit = phone => {
@@ -87,9 +88,16 @@ const Edit = () => {
               </div>
             )}
           </Field>
-          <button type="submit" disabled={submitting || pristine || invalid}>
-            Submit
-          </button>
+          {isSubmitting ? (
+            <button class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="visually-hidden">Loading...</span>
+            </button>
+          ) : (
+            <button type="submit" disabled={submitting || pristine || invalid}>
+              Submit
+            </button>
+          )}
           <div>
             <Link href="/">
               <a> RETURN HOME </a>
