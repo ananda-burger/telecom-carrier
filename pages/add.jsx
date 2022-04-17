@@ -15,11 +15,10 @@ const Add = () => {
   const composeValidators = (...validators) => value =>
     validators.reduce((error, validator) => error || validator(value), undefined)
 
-
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, submitting, pristine }) => (
+      render={({ handleSubmit, submitting, pristine, invalid }) => (
         <form onSubmit={handleSubmit}>
           <Field
             name="value"
@@ -81,7 +80,7 @@ const Add = () => {
               </div>
             )}
           </Field>
-          <button type="submit" disabled={submitting || pristine}>
+          <button type="submit" disabled={submitting || pristine || invalid}>
             Submit
           </button>
           <div>

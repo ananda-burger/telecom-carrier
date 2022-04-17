@@ -25,7 +25,7 @@ const Edit = () => {
     <Form
       onSubmit={onSubmit}
       initialValues={currentPhone}
-      render={({ handleSubmit, submitting, pristine }) => (
+      render={({ handleSubmit, submitting, pristine, invalid }) => (
         <form onSubmit={handleSubmit}>
           <Field
             name="value"
@@ -87,7 +87,7 @@ const Edit = () => {
               </div>
             )}
           </Field>
-          <button type="submit" disabled={submitting || pristine}>
+          <button type="submit" disabled={submitting || pristine || invalid}>
             Submit
           </button>
           <div>
