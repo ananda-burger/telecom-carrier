@@ -20,15 +20,15 @@ export default function Home() {
   }, [isReady, page])
 
   return (
-    <div className='container-lg'>
-      <h1 className='display-5'>Phones list</h1>
+    <div className='container-lg mt-5'>
+      <h1 className='display-6'>Numbers for sale</h1>
       <Link href="/add">
         <button className='btn btn-primary'>New</button>
       </Link>
       <table className='table table-striped table-borderless table-hover table=responsive'>
         <thead className="thead-light">
           <tr>
-            <th>Value</th>
+            <th>Phone number</th>
             <th>Monthly Price</th>
             <th>Setup Price</th>
             <th>Currency</th>
