@@ -89,9 +89,9 @@ const Edit = () => {
             )}
           </Field>
           {isSubmitting ? (
-            <button class="btn btn-primary" type="button" disabled>
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span class="visually-hidden">Loading...</span>
+            <button className="btn btn-primary" type="button" disabled>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span className="visually-hidden">Loading...</span>
             </button>
           ) : (
             <button type="submit" disabled={submitting || pristine || invalid}>
