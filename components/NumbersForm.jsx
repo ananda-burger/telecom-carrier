@@ -1,4 +1,5 @@
 import { Form, Field } from 'react-final-form'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import * as phonesSlice from '../store/slices/phonesSlice'
@@ -35,7 +36,13 @@ export default function NumbersForm({ formInitialValues, action, title }) {
       <Form
         onSubmit={onSubmit}
         initialValues={formInitialValues}
-        render={({ handleSubmit, pristine, invalid }) => {
+        render={({ handleSubmit, pristine, invalid, submitSucceeded }) => {
+          useEffect(() => {
+            if (router.isReady && submitSucceeded) {
+              router.back()
+            }
+          }, [router.isReady, submitSucceeded])
+
           return (
             <form onSubmit={handleSubmit}>
               <div className='mt-3 mb-4 w-50'>
