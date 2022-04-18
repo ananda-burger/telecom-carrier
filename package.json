@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "format": "prettier --write .",
     "lint": "next lint",
     "start": "next build && next start",
     "test": "jest",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.4",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "prettier": "2.6.2"
   }
 }
