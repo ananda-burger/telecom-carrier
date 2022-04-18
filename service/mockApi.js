@@ -13,7 +13,7 @@ const read = () => {
   return JSON.parse(localStorage.getItem('phones')) || []
 }
 
-const fetchNumbers = ({page, perPage}) => {
+const fetchNumbers = ({ page, perPage }) => {
   const index = perPage * (page - 1)
   const allPhones = read()
   return new Promise((resolve, _reject) => {
@@ -44,7 +44,7 @@ const removeNumbers = (id) => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
       const phones = read()
-      const index = phones.findIndex(p => p.id === id)
+      const index = phones.findIndex((p) => p.id === id)
 
       write([...phones.slice(0, index), ...phones.slice(index + 1)])
       resolve(id)
@@ -56,10 +56,10 @@ const editNumber = (phone) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (failureToggles.edit) {
-        reject({message: 'any'})
+        reject({ message: 'any' })
       } else {
         const phones = read()
-        const index = phones.findIndex(p => p.id === phone.id)
+        const index = phones.findIndex((p) => p.id === phone.id)
         phones[index] = phone
 
         write(phones)

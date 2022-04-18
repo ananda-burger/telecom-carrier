@@ -10,7 +10,7 @@ export default function HomePage() {
   const dispatch = useDispatch()
   const router = useRouter()
   const { isReady, query } = router
-  const page = Math.min(nPages, (parseInt(query.page, 10) || 1))
+  const page = Math.min(nPages, parseInt(query.page, 10) || 1)
 
   useEffect(() => {
     if (isReady) {
@@ -28,15 +28,13 @@ export default function HomePage() {
   return (
     <>
       <div className='d-flex justify-content-between'>
-        <h1 className='display-6'>
-          Numbers for sale
-        </h1>
-        <Link href="/add">
+        <h1 className='display-6'>Numbers for sale</h1>
+        <Link href='/add'>
           <button className='btn btn-primary'>New</button>
         </Link>
       </div>
       <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
-        <thead className="thead-light">
+        <thead className='thead-light'>
           <tr>
             <th>Phone Number</th>
             <th>Monthly Price</th>
@@ -45,9 +43,9 @@ export default function HomePage() {
             <th></th>
             <th></th>
           </tr>
-        </thead >
+        </thead>
         <tbody>
-          {phones.map(phone => {
+          {phones.map((phone) => {
             return (
               <tr key={phone.id}>
                 <td>{phone.value}</td>
@@ -60,7 +58,10 @@ export default function HomePage() {
                   </Link>
                 </td>
                 <td>
-                  <a className="link-primary" onClick={() => dispatch(phonesSlice.remove(phone.id))}>
+                  <a
+                    className='link-primary'
+                    onClick={() => dispatch(phonesSlice.remove(phone.id))}
+                  >
                     Delete
                   </a>
                 </td>
@@ -68,7 +69,7 @@ export default function HomePage() {
             )
           })}
         </tbody>
-      </table >
+      </table>
     </>
   )
 }

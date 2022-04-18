@@ -4,9 +4,7 @@ describe('phonesSlice', () => {
   it('Selects phones', () => {
     const rootState = {
       phones: {
-        list: [
-          { phone: 1 }
-        ]
+        list: [{ phone: 1 }]
       }
     }
 

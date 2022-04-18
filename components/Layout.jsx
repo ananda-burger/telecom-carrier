@@ -1,7 +1,7 @@
 import NavigationBar from './NavigationBar'
 import styles from './Layout.module.css'
 import * as phonesSlice from '../store/slices/phonesSlice'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export default function Layout({ children }) {
   const isLoading = useSelector(phonesSlice.selectIsLoading)
@@ -9,14 +9,12 @@ export default function Layout({ children }) {
   return (
     <div>
       <NavigationBar />
-      {isLoading &&
-       <span className={styles.spinner}>
-          <span className="spinner-border text-primary" role="status" aria-hidden="true"></span>
+      {isLoading && (
+        <span className={styles.spinner}>
+          <span className='spinner-border text-primary' role='status' aria-hidden='true'></span>
         </span>
-      }
-      <div className='container-lg mt-3'>
-        {children}
-      </div>
+      )}
+      <div className='container-lg mt-3'>{children}</div>
     </div>
   )
 }

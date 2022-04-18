@@ -33,33 +33,21 @@ export const selectSubmitError = (rootState) => {
   return rootState.phones.form.submitError
 }
 
-export const fetch = createAsyncThunk(
-  'phones/fetch',
-  ({ page }) => {
-    return api.fetchNumbers({ page, perPage: PER_PAGE })
-  }
-)
+export const fetch = createAsyncThunk('phones/fetch', ({ page }) => {
+  return api.fetchNumbers({ page, perPage: PER_PAGE })
+})
 
-export const add = createAsyncThunk(
-  'phones/add',
-  (phone) => {
-    return api.addNumber(phone)
-  }
-)
+export const add = createAsyncThunk('phones/add', (phone) => {
+  return api.addNumber(phone)
+})
 
-export const edit = createAsyncThunk(
-  'phones/edit',
-  (phone) => {
-    return api.editNumber(phone)
-  }
-)
+export const edit = createAsyncThunk('phones/edit', (phone) => {
+  return api.editNumber(phone)
+})
 
-export const remove = createAsyncThunk(
-  'phones/remove',
-  (id) => {
-    return api.removeNumbers(id)
-  }
-)
+export const remove = createAsyncThunk('phones/remove', (id) => {
+  return api.removeNumbers(id)
+})
 
 const slice = createSlice({
   name: 'phonesSlice',
@@ -81,7 +69,7 @@ const slice = createSlice({
       })
 
       .addCase(remove.fulfilled, (state, action) => {
-        const index = state.list.findIndex(p => p.id === action.payload)
+        const index = state.list.findIndex((p) => p.id === action.payload)
         state.list.splice(index, 1)
         state.totalCount -= 1
       })

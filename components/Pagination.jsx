@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { times } from '../lib/util'
 
-const previousLink = ({isReady, page}) => {
+const previousLink = ({ isReady, page }) => {
   const hasPreviousPage = page > 1
   const isDisabled = !isReady || !hasPreviousPage
   const previousPage = Math.max(page - 1, 1)
   return (
-    <li className={classNames({ 'page-item': true, disabled: isDisabled })} >
+    <li className={classNames({ 'page-item': true, disabled: isDisabled })}>
       <Link href={{ pathname: '/', query: { page: previousPage } }}>
         <a className='page-link'>Previous</a>
       </Link>
@@ -18,11 +18,11 @@ const previousLink = ({isReady, page}) => {
   )
 }
 
-const nextLink = ({isReady, page, nPages}) => {
+const nextLink = ({ isReady, page, nPages }) => {
   const hasNextPage = page < nPages
   const isDisabled = !isReady || !hasNextPage
   return (
-    <li className={classNames({ 'page-item': true, disabled: isDisabled })} >
+    <li className={classNames({ 'page-item': true, disabled: isDisabled })}>
       <Link href={{ pathname: '/', query: { page: page + 1 } }}>
         <a className='page-link'>Next</a>
       </Link>
@@ -32,7 +32,7 @@ const nextLink = ({isReady, page, nPages}) => {
 
 const pageLink = (page, currentPage) => {
   return (
-    <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`} >
+    <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
       <Link href={{ pathname: '/', query: { page } }}>
         <a className='page-link'>{page}</a>
       </Link>
@@ -43,13 +43,13 @@ const pageLink = (page, currentPage) => {
 export default function Pagination() {
   const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const router = useRouter()
-  const {isReady, query} = router
-  const page = Math.min(nPages, (parseInt(query.page, 10) || 1))
+  const { isReady, query } = router
+  const page = Math.min(nPages, parseInt(query.page, 10) || 1)
 
   return (
-    <ul className="pagination justify-content-center mt-5">
+    <ul className='pagination justify-content-center mt-5'>
       {previousLink({ isReady, page })}
-      {times(nPages, i => pageLink(i + 1, page))}
+      {times(nPages, (i) => pageLink(i + 1, page))}
       {nextLink({ isReady, page, nPages })}
     </ul>
   )
