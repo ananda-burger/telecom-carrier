@@ -51,7 +51,7 @@ export default function NumbersForm ({ formInitialValues, action, title }) {
             </div>
             <div className='mb-4 w-50'>
               <Field
-                name="monthlyPrice"
+                name="monthyPrice"
                 component="input"
                 type="text"
                 placeholder="Monthly Price"

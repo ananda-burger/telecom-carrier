@@ -51,7 +51,7 @@ export default function HomePage() {
             return (
               <tr key={phone.id}>
                 <td>{phone.value}</td>
-                <td>{phone.monthlyPrice}</td>
+                <td>{phone.monthyPrice}</td>
                 <td>{phone.setupPrice}</td>
                 <td>{phone.currency}</td>
                 <td>
