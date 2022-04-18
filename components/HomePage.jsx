@@ -67,7 +67,7 @@ export default function HomePage() {
                   <a
                     className='card-link text-primary'
                     href='#'
-                    onClick={() => openDeleteConfirmation(phone.id)}
+                    onClick={() => openDeleteConfirmation(parseInt(phone.id, 10))}
                   >
                     Delete
                   </a>
