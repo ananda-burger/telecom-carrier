@@ -1,8 +1,8 @@
 const RESPONSE_TIME = 500
 
 const failureToggles = {
-  edit: true,
-  add: true
+  edit: false,
+  add: false
 }
 
 const write = (phones) => {
@@ -32,7 +32,10 @@ const addNumber = (phone) => {
       if (failureToggles.add) {
         reject({ message: 'any' })
       } else {
-        const newPhone = { ...phone, id: Math.floor(Math.random() * 1000) }
+        const sortedPhones = read().sort((a, b) => a.id - b.id)
+        const latestId = sortedPhones[sortedPhones.length - 1].id
+        const newPhone = { ...phone, id: latestId + 1 }
+
         write(read().concat(newPhone))
         resolve(newPhone)
       }
