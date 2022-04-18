@@ -8,6 +8,7 @@ import Layout from './Layout'
 export default function PhonesForm({ formInitialValues, action, title }) {
   const isSubmitting = useSelector(phonesSlice.selectIsSubmitting)
   const submitError = useSelector(phonesSlice.selectSubmitError)
+  const currentPhone = useSelector(phonesSlice.selectCurrentPhone)
   const router = useRouter()
   const dispatch = useDispatch()
   const capitalizedTitle = title[0].toUpperCase() + title.slice(1).toLowerCase()
@@ -16,12 +17,26 @@ export default function PhonesForm({ formInitialValues, action, title }) {
     dispatch(action(phone))
   }
 
+  const formValues = () => {
+    if (capitalizedTitle === 'Edit' && !formInitialValues) {
+      return currentPhone
+    } else {
+      return formInitialValues
+    }
+  }
+
   const required = (value) => (value ? undefined : 'Required field')
   const mustBeNumber = (value) => (isNaN(value) ? 'Price must be a number' : undefined)
   const composeValidators =
     (...validators) =>
     (value) =>
       validators.reduce((error, validator) => error || validator(value), undefined)
+
+  useEffect(() => {
+    if (router.isReady && capitalizedTitle === 'Edit' && !formInitialValues) {
+      dispatch(phonesSlice.find(router.query.id))
+    }
+  }, [router.isReady])
 
   return (
     <Layout>
@@ -35,7 +50,7 @@ export default function PhonesForm({ formInitialValues, action, title }) {
 
       <Form
         onSubmit={onSubmit}
-        initialValues={formInitialValues}
+        initialValues={formValues()}
         render={({ handleSubmit, pristine, invalid, submitSucceeded }) => {
           useEffect(() => {
             if (router.isReady && submitSucceeded) {

@@ -75,4 +75,15 @@ const editNumber = (phone) => {
   })
 }
 
-export { fetchNumbers, addNumber, removeNumbers, editNumber }
+const findNumber = (rawId) => {
+  const id = parseInt(rawId, 10)
+  return new Promise((resolve, _reject) => {
+    setTimeout(() => {
+      const phones = read()
+      const index = phones.findIndex((p) => p.id === id)
+
+      resolve(phones[index])
+    }, RESPONSE_TIME)
+  })
+}
+export { fetchNumbers, addNumber, removeNumbers, editNumber, findNumber }

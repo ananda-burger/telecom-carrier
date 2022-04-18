@@ -9,7 +9,8 @@ const initialState = {
   isLoading: false,
   form: {
     submitError: null,
-    isSubmitting: false
+    isSubmitting: false,
+    currentPhone: {}
   }
 }
 
@@ -33,6 +34,10 @@ export const selectSubmitError = (rootState) => {
   return rootState.phones.form.submitError
 }
 
+export const selectCurrentPhone = (rootState) => {
+  return rootState.phones.form.currentPhone
+}
+
 export const fetch = createAsyncThunk('phones/fetch', ({ page }) => {
   return api.fetchNumbers({ page, perPage: PER_PAGE })
 })
@@ -47,6 +52,10 @@ export const edit = createAsyncThunk('phones/edit', (phone) => {
 
 export const remove = createAsyncThunk('phones/remove', (id) => {
   return api.removeNumbers(id)
+})
+
+export const find = createAsyncThunk('phones/find', (id) => {
+  return api.findNumber(id)
 })
 
 const slice = createSlice({
@@ -105,6 +114,17 @@ const slice = createSlice({
       .addCase(edit.rejected, (state, action) => {
         state.form.isSubmitting = false
         state.form.submitError = action.error
+      })
+
+      .addCase(find.fulfilled, (state, action) => {
+        state.form.currentPhone = action.payload
+        state.isLoading = false
+      })
+      .addCase(find.pending, (state, _action) => {
+        state.isLoading = true
+      })
+      .addCase(find.rejected, (state, action) => {
+        state.isLoading = false
       })
   }
 })
