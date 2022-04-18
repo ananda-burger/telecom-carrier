@@ -64,7 +64,11 @@ export default function HomePage() {
                   </Link>
                 </td>
                 <td>
-                  <a className='link-primary' onClick={() => openDeleteConfirmation(phone.id)}>
+                  <a
+                    className='card-link text-primary'
+                    href='#'
+                    onClick={() => openDeleteConfirmation(phone.id)}
+                  >
                     Delete
                   </a>
                 </td>
