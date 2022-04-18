@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../service/mockApi'
 
-const PER_PAGE = 20
+const PER_PAGE = 15
 
 const initialState = {
   list: [],
   totalCount: 0,
   isLoading: false,
   form: {
-    isSubmitting: false,
+    submitError: null,
+    isSubmitting: false
   }
 }
 
@@ -26,6 +27,10 @@ export const selectNumberOfPages = (rootState) => {
 
 export const selectIsSubmitting = (rootState) => {
   return rootState.phones.form.isSubmitting
+}
+
+export const selectSubmitError = (rootState) => {
+  return rootState.phones.form.submitError
 }
 
 export const fetch = createAsyncThunk(
@@ -91,29 +96,27 @@ const slice = createSlice({
         state.list.push(action.payload)
         state.totalCount += 1
         state.form.isSubmitting = false
+        state.form.submitError = null
       })
       .addCase(add.pending, (state, _action) => {
-        // TODO: disable form
         state.form.isSubmitting = true
       })
       .addCase(add.rejected, (state, action) => {
-        // TODO: display error message
         state.form.isSubmitting = false
-        console.log(action.error)
+        state.form.submitError = action.error
       })
 
       .addCase(edit.fulfilled, (state, action) => {
         state.list = action.payload
         state.form.isSubmitting = false
+        state.form.submitError = null
       })
       .addCase(edit.pending, (state, _action) => {
-        // TODO: disable form
         state.form.isSubmitting = true
       })
       .addCase(edit.rejected, (state, action) => {
-        // TODO: display error message
         state.form.isSubmitting = false
-        console.log(action.error)
+        state.form.submitError = action.error
       })
   }
 })
