@@ -84,8 +84,12 @@ const slice = createSlice({
         state.totalCount += 1
       })
 
-      .addCase(edit.fulfilled, (state, action) => {
-        state.list = action.payload
+      .addCase(edit.fulfilled, (state, { payload }) => {
+        const index = state.list.findIndex((p) => p.id === payload.id)
+
+        if (index >= 0) {
+          state.list[index] = payload
+        }
       })
 
       .addCase(find.fulfilled, (state, action) => {

@@ -69,7 +69,7 @@ const editNumber = (phone) => {
         phones[index] = phone
 
         write(phones)
-        resolve(phones)
+        resolve(phone)
       }
     }, RESPONSE_TIME)
   })
