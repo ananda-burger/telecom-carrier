@@ -10,7 +10,13 @@ const write = (phones) => {
 }
 
 const read = () => {
-  return JSON.parse(localStorage.getItem('phones')) || []
+  return JSON.parse(localStorage.getItem('phones')).sort((a, b) => a.id - b.id) || []
+}
+
+const nextId = () => {
+  const phones = read()
+  const latestId = phones[phones.length - 1].id
+  return latestId + 1
 }
 
 const fetchNumbers = ({ page, perPage }) => {
@@ -32,10 +38,7 @@ const addNumber = (phone) => {
       if (failureToggles.add) {
         reject({ message: 'any' })
       } else {
-        const sortedPhones = read().sort((a, b) => a.id - b.id)
-        const latestId = sortedPhones[sortedPhones.length - 1].id
-        const newPhone = { ...phone, id: latestId + 1 }
-
+        const newPhone = { ...phone, id: nextId() }
         write(read().concat(newPhone))
         resolve(newPhone)
       }
