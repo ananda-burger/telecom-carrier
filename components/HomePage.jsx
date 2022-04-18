@@ -25,6 +25,12 @@ export default function HomePage() {
     }
   }, [isReady, page])
 
+  const openDeleteConfirmation = (id) => {
+    if (confirm('Are you sure you want to delete this phone number?')) {
+      dispatch(phonesSlice.remove(id))
+    }
+  }
+
   return (
     <>
       <div className='d-flex justify-content-between'>
@@ -58,10 +64,7 @@ export default function HomePage() {
                   </Link>
                 </td>
                 <td>
-                  <a
-                    className='link-primary'
-                    onClick={() => dispatch(phonesSlice.remove(phone.id))}
-                  >
+                  <a className='link-primary' onClick={() => openDeleteConfirmation(phone.id)}>
                     Delete
                   </a>
                 </td>
