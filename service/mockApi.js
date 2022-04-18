@@ -36,7 +36,7 @@ const addNumber = (phone) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (failureToggles.add) {
-        reject({ message: 'any' })
+        reject({ message: 'Unexpected server error' })
       } else {
         const newPhone = { ...phone, id: nextId() }
         write(read().concat(newPhone))
@@ -62,7 +62,7 @@ const editNumber = (phone) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (failureToggles.edit) {
-        reject({ message: 'any' })
+        reject({ message: 'Unexpected server error' })
       } else {
         const phones = read()
         const index = phones.findIndex((p) => p.id === phone.id)

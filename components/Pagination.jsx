@@ -31,7 +31,7 @@ const nextLink = ({ isReady, page, nPages }) => {
 
 const pageLink = (page, currentPage) => {
   return (
-    <li className={`page-item ${page === currentPage ? 'active' : ''}`}>
+    <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
       <Link href={{ pathname: '/', query: { page } }}>
         <a className='page-link'>{page}</a>
       </Link>

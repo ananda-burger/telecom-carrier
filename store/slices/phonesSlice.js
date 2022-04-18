@@ -8,8 +8,6 @@ const initialState = {
   totalCount: 0,
   isLoading: false,
   form: {
-    submitError: null,
-    isSubmitting: false,
     currentPhone: {}
   }
 }
@@ -24,14 +22,6 @@ export const selectIsLoading = (rootState) => {
 
 export const selectNumberOfPages = (rootState) => {
   return Math.ceil(rootState.phones.totalCount / PER_PAGE)
-}
-
-export const selectIsSubmitting = (rootState) => {
-  return rootState.phones.form.isSubmitting
-}
-
-export const selectSubmitError = (rootState) => {
-  return rootState.phones.form.submitError
 }
 
 export const selectCurrentPhone = (rootState) => {
@@ -92,28 +82,10 @@ const slice = createSlice({
       .addCase(add.fulfilled, (state, action) => {
         state.list.push(action.payload)
         state.totalCount += 1
-        state.form.isSubmitting = false
-        state.form.submitError = null
-      })
-      .addCase(add.pending, (state, _action) => {
-        state.form.isSubmitting = true
-      })
-      .addCase(add.rejected, (state, action) => {
-        state.form.isSubmitting = false
-        state.form.submitError = action.error
       })
 
       .addCase(edit.fulfilled, (state, action) => {
         state.list = action.payload
-        state.form.isSubmitting = false
-        state.form.submitError = null
-      })
-      .addCase(edit.pending, (state, _action) => {
-        state.form.isSubmitting = true
-      })
-      .addCase(edit.rejected, (state, action) => {
-        state.form.isSubmitting = false
-        state.form.submitError = action.error
       })
 
       .addCase(find.fulfilled, (state, action) => {
@@ -123,7 +95,7 @@ const slice = createSlice({
       .addCase(find.pending, (state, _action) => {
         state.isLoading = true
       })
-      .addCase(find.rejected, (state, action) => {
+      .addCase(find.rejected, (state, _action) => {
         state.isLoading = false
       })
   }

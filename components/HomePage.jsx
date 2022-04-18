@@ -16,7 +16,6 @@ export default function HomePage() {
     if (isReady) {
       dispatch(phonesSlice.fetch({ page }))
       const intervalId = setInterval(() => {
-        console.log('fetching...', { page })
         dispatch(phonesSlice.fetch({ page }))
       }, 10000)
       return function cleanup() {
