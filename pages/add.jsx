@@ -1,8 +1,8 @@
 import * as phonesSlice from '../store/slices/phonesSlice'
-import NumbersForm from '../components/NumbersForm'
+import PhonesForm from '../components/PhonesForm'
 
 const Add = () => {
-  return <NumbersForm action={phonesSlice.add} title='add' />
+  return <PhonesForm action={phonesSlice.add} title='add' />
 }
 
 export default Add

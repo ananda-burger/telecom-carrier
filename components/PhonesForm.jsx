@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as phonesSlice from '../store/slices/phonesSlice'
 import Layout from './Layout'
 
-export default function NumbersForm({ formInitialValues, action, title }) {
+export default function PhonesForm({ formInitialValues, action, title }) {
   const isSubmitting = useSelector(phonesSlice.selectIsSubmitting)
   const submitError = useSelector(phonesSlice.selectSubmitError)
   const router = useRouter()
