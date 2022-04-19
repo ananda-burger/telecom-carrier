@@ -8,7 +8,14 @@ const Edit = () => {
   const phones = useSelector(phonesSlice.selectPhones)
   const currentPhone = phones.find((p) => p.id === parseInt(router.query.id, 10))
 
-  return <PhonesForm formInitialValues={currentPhone} action={phonesSlice.edit} title='Edit' />
+  return (
+    <PhonesForm
+      formInitialValues={currentPhone}
+      action={phonesSlice.edit}
+      isEditing={true}
+      title='Edit'
+    />
+  )
 }
 
 export default Edit
