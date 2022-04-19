@@ -2,7 +2,14 @@ import * as phonesSlice from '../store/slices/phonesSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { times } from '../lib/util'
+import { range } from '../lib/util'
+
+export const pagesRange = ({ page, nPages }) => {
+  const offset = 5
+  const start = Math.max(1, Math.min(page, nPages) - offset)
+  const end = Math.min(nPages, Math.max(2 * offset, page + offset))
+  return range(start, end + 1)
+}
 
 const previousLink = ({ isReady, page }) => {
   const hasPreviousPage = page > 1
@@ -49,7 +56,7 @@ export default function Pagination() {
     return (
       <ul className='pagination justify-content-center mt-5'>
         {previousLink({ isReady, page })}
-        {times(nPages, (i) => pageLink(i + 1, page))}
+        {pagesRange({ page, nPages }).map((p) => pageLink(p, page))}
         {nextLink({ isReady, page, nPages })}
       </ul>
     )
