@@ -128,7 +128,7 @@ const currencyField = () => {
   )
 }
 
-export default function PhonesForm({ formInitialValues, action, title, isEditing }) {
+export default function PhonesForm({ initialValues, action, title, isEditing }) {
   const currentPhone = useSelector(phonesSlice.selectCurrentPhone)
   const router = useRouter()
   const dispatch = useDispatch()
@@ -145,15 +145,14 @@ export default function PhonesForm({ formInitialValues, action, title, isEditing
   }
 
   const formValues = () => {
-    if (isEditing && !formInitialValues) {
+    if (isEditing && !initialValues) {
       return currentPhone
-    } else {
-      return formInitialValues
     }
+    return initialValues
   }
 
   useEffect(() => {
-    if (router.isReady && isEditing && !formInitialValues) {
+    if (router.isReady && isEditing && !initialValues) {
       dispatch(phonesSlice.find(router.query.id))
     }
   }, [router.isReady])

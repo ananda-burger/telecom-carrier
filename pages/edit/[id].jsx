@@ -10,7 +10,7 @@ const Edit = () => {
 
   return (
     <PhonesForm
-      formInitialValues={currentPhone}
+      initialValues={currentPhone}
       action={phonesSlice.edit}
       isEditing={true}
       title='Edit'
