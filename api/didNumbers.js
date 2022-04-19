@@ -1,4 +1,4 @@
-const RESPONSE_TIME = 500
+const DELAY_MS = 2000
 
 const failureToggles = {
   edit: false,
@@ -35,7 +35,7 @@ const fetchNumbers = ({ page, perPage }) => {
         phones: allPhones.slice(index, index + perPage),
         totalCount: allPhones.length
       })
-    }, RESPONSE_TIME)
+    }, DELAY_MS)
   })
 }
 
@@ -49,7 +49,7 @@ const addNumber = (phone) => {
         write(read().concat(newPhone))
         resolve(newPhone)
       }
-    }, RESPONSE_TIME)
+    }, DELAY_MS)
   })
 }
 
@@ -61,7 +61,7 @@ const removeNumbers = (id) => {
 
       write([...phones.slice(0, index), ...phones.slice(index + 1)])
       resolve(id)
-    }, RESPONSE_TIME)
+    }, DELAY_MS)
   })
 }
 
@@ -78,7 +78,7 @@ const editNumber = (phone) => {
         write(phones)
         resolve(phone)
       }
-    }, RESPONSE_TIME)
+    }, DELAY_MS)
   })
 }
 
@@ -90,7 +90,7 @@ const findNumber = (rawId) => {
       const index = phones.findIndex((p) => p.id === id)
 
       resolve(phones[index])
-    }, RESPONSE_TIME)
+    }, DELAY_MS)
   })
 }
 export { fetchNumbers, addNumber, removeNumbers, editNumber, findNumber }
