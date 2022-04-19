@@ -28,10 +28,10 @@ const phoneNumberField = () => {
       >
         {({ input, meta }) => (
           <div>
-            <label htmlFor='value'>Phone number</label>
+            <label htmlFor='phone'>Phone number</label>
             <input
               {...input}
-              id='value'
+              id='phone'
               type='text'
               placeholder='Phone number'
               className={meta.touched && meta.error ? 'form-control is-invalid' : 'form-control'}
@@ -193,7 +193,7 @@ export default function PhonesForm({ formInitialValues, action, title }) {
                         role='status'
                         aria-hidden='true'
                       ></span>
-                      <span className='visually-hidden'>Loading...</span>
+                      <span className='visually-hidden'>Loading submission...</span>
                     </button>
                   ) : (
                     <button

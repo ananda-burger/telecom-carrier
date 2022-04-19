@@ -12,6 +12,7 @@ export default function Layout({ children }) {
       {isLoading && (
         <span className={styles.spinner}>
           <span className='spinner-border text-primary' role='status' aria-hidden='true'></span>
+          <span className='visually-hidden'>Loading...</span>
         </span>
       )}
       <div className='container-lg mt-3'>{children}</div>
