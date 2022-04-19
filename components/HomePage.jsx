@@ -36,12 +36,12 @@ export default function HomePage() {
   return (
     <>
       <div className='d-flex justify-content-between'>
-        <h1 className='display-6'>Numbers for sale</h1>
+        <h1 className='display-6 m-0'>Numbers for sale</h1>
         <Link href='/add'>
-          <button className='btn btn-primary'>New</button>
+          <button className='btn btn-primary fw-bold'>New</button>
         </Link>
       </div>
-      <table className='mt-3 table table-striped table-borderless table-hover table=responsive'>
+      <table className='mt-3 table table-striped table-borderless table-hover table=responsive align-middle'>
         <thead className='thead-light'>
           <tr>
             <th>Phone Number</th>
@@ -66,13 +66,12 @@ export default function HomePage() {
                   </Link>
                 </td>
                 <td>
-                  <a
-                    className='card-link text-primary'
-                    href='#'
+                  <button
+                    className='btn border-transparent link-primary p-0'
                     onClick={() => openDeleteConfirmation(parseInt(phone.id, 10))}
                   >
                     Delete
-                  </a>
+                  </button>
                 </td>
               </tr>
             )
