@@ -5,3 +5,7 @@
 .phoneRow:nth-child(even) {
   background-color: white;
 }
+
+.actions a:last-child {
+  padding-left: 1rem;
+}

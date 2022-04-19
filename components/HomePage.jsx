@@ -28,7 +28,8 @@ export default function HomePage() {
     }
   }, [isReady, query.page])
 
-  const openDeleteConfirmation = (phone) => {
+  const openDeleteConfirmation = (phone) => (event) => {
+    event.preventDefault()
     const msg = `Are you sure you want to delete the DID number ${phone.value}? This operation is irreversible.`
     if (confirm(msg)) {
       dispatch(phonesSlice.remove({ id: phone.id, page: parsePage(query.page) }))
@@ -40,7 +41,7 @@ export default function HomePage() {
       <div className='d-flex justify-content-between'>
         <h1 className='display-6 m-0'>Numbers for sale</h1>
         <Link href='/add'>
-          <button className='btn btn-warning fw-bold'>Add</button>
+          <button className='btn btn-primary fw-bold'>Add</button>
         </Link>
       </div>
 
@@ -55,7 +56,7 @@ export default function HomePage() {
         {phones.map((phone) => {
           return (
             <div key={phone.id} className={`${classes.phoneRow} py-2 col-12 overflow-hidden`}>
-              <div className='row pt-2 pb-2 gy-3 gy-md-0 d-md-flex align-items-center'>
+              <div className='row py-1 gy-3 gy-md-0 d-md-flex align-items-center'>
                 <div className='col-12 col-md-3'>
                   <span className='fw-bold d-md-none'>Phone: </span>
                   <span>{phone.value}</span>
@@ -71,16 +72,13 @@ export default function HomePage() {
                   <span className='d-md-none'> {phone.currency}</span>
                 </div>
                 <div className='d-none d-md-flex col-md-2'>{phone.currency}</div>
-                <div className='col col-md-3 text-md-end'>
+                <div className={`col col-md-3 text-md-end ${classes.actions}`}>
                   <Link href={`/edit/${phone.id}`}>
-                    <button className='btn btn-primary'>Edit</button>
+                    <a className='link-primary'>Edit</a>
                   </Link>
-                  <button
-                    className='btn ms-2 btn-secondary'
-                    onClick={() => openDeleteConfirmation(phone)}
-                  >
+                  <a href='#' className='ms-2' onClick={openDeleteConfirmation(phone)}>
                     Delete
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
