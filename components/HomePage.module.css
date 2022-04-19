@@ -1,0 +1,7 @@
+.phoneRow:nth-child(odd) {
+  background-color: #eeeeee;
+}
+
+.phoneRow:nth-child(even) {
+  background-color: white;
+}

@@ -54,7 +54,7 @@ export default function Pagination() {
   if (nPages > 1) {
     const page = Math.min(nPages, parseInt(query.page, 10) || 1)
     return (
-      <ul className='pagination justify-content-center mt-5'>
+      <ul className='pagination justify-content-center mt-4'>
         {previousLink({ isReady, page })}
         {pagesRange({ page, nPages }).map((p) => pageLink(p, page))}
         {nextLink({ isReady, page, nPages })}

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Pagination from '../components/Pagination'
 import * as phonesSlice from '../store/slices/phonesSlice'
+import classes from './HomePage.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -38,46 +39,53 @@ export default function HomePage() {
       <div className='d-flex justify-content-between'>
         <h1 className='display-6 m-0'>Numbers for sale</h1>
         <Link href='/add'>
-          <button className='btn btn-primary fw-bold'>New</button>
+          <button className='btn btn-warning fw-bold'>Add</button>
         </Link>
       </div>
-      <table className='mt-3 table table-striped table-borderless table-hover table=responsive align-middle'>
-        <thead className='thead-light'>
-          <tr>
-            <th>Phone Number</th>
-            <th>Monthly Price</th>
-            <th>Setup Price</th>
-            <th>Currency</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {phones.map((phone) => {
-            return (
-              <tr key={phone.id}>
-                <td>{phone.value}</td>
-                <td>{phone.monthyPrice}</td>
-                <td>{phone.setupPrice}</td>
-                <td>{phone.currency}</td>
-                <td>
+
+      <div className='row pt-2 pb-2 mt-3 rounded-top d-none d-md-flex'>
+        <div className='col-3 fw-bold'>Phone Number</div>
+        <div className='col-2 fw-bold'>Monthly Price</div>
+        <div className='col-2 fw-bold'>Setup Price</div>
+        <div className='col-3 col-offset-9 fw-bold'>Currency</div>
+      </div>
+
+      <div className='row mt-2 mt-md-0'>
+        {phones.map((phone) => {
+          return (
+            <div key={phone.id} className={`${classes.phoneRow} py-2 col-12 overflow-hidden`}>
+              <div className='row pt-2 pb-2 gy-3 gy-md-0 d-md-flex align-items-center'>
+                <div className='col-12 col-md-3'>
+                  <span className='fw-bold d-md-none'>Phone: </span>
+                  <span>{phone.value}</span>
+                </div>
+                <div className='col-6 col-md-2'>
+                  <span className='fw-bold d-md-none'>Monthly price: </span>
+                  <span>{phone.monthyPrice}</span>
+                  <span className='d-md-none'> {phone.currency}</span>
+                </div>
+                <div className='col-6 col-md-2'>
+                  <span className='fw-bold d-md-none'>Setup price: </span>
+                  <span>{phone.setupPrice}</span>
+                  <span className='d-md-none'> {phone.currency}</span>
+                </div>
+                <div className='d-none d-md-flex col-md-2'>{phone.currency}</div>
+                <div className='col col-md-3 text-md-end'>
                   <Link href={`/edit/${phone.id}`}>
-                    <a className='link-primary'>Edit</a>
+                    <button className='btn btn-primary'>Edit</button>
                   </Link>
-                </td>
-                <td>
                   <button
-                    className='btn border-transparent link-primary p-0'
+                    className='btn ms-2 btn-secondary'
                     onClick={() => openDeleteConfirmation(parseInt(phone.id, 10))}
                   >
                     Delete
                   </button>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
       <Pagination />
     </>
   )
