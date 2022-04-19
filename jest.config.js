@@ -14,7 +14,8 @@ const customJestConfig = {
     '^@/components/(.*)$': ['<rootDir>/components/$1'],
     '^@/lib/(.*)$': ['<rootDir>/lib/$1'],
     '^@/pages/(.*)$': ['<rootDir>/pages/$1'],
-    '^@/store/(.*)$': ['<rootDir>/store/$1']
+    '^@/store/(.*)$': ['<rootDir>/store/$1'],
+    '^@/testUtils/(.*)$': ['<rootDir>/testUtils/$1']
   }
 }
 

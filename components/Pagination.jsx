@@ -16,7 +16,7 @@ const previousLink = ({ isReady, page }) => {
   const isDisabled = !isReady || !hasPreviousPage
   const previousPage = Math.max(page - 1, 1)
   return (
-    <li className={`page-item d-none d-sm-flex ${isDisabled && 'disabled'}`}>
+    <li data-testid='previous' className={`page-item d-none d-sm-flex ${isDisabled && 'disabled'}`}>
       <Link href={{ pathname: '/', query: { page: previousPage } }}>
         <a className='page-link'>Previous</a>
       </Link>
@@ -28,7 +28,7 @@ const nextLink = ({ isReady, page, nPages }) => {
   const hasNextPage = page < nPages
   const isDisabled = !isReady || !hasNextPage
   return (
-    <li className={`page-item d-none d-sm-flex ${isDisabled && 'disabled'}`}>
+    <li data-testid='next' className={`page-item d-none d-sm-flex ${isDisabled && 'disabled'}`}>
       <Link href={{ pathname: '/', query: { page: page + 1 } }}>
         <a className='page-link'>Next</a>
       </Link>
@@ -38,7 +38,11 @@ const nextLink = ({ isReady, page, nPages }) => {
 
 const pageLink = (page, currentPage) => {
   return (
-    <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
+    <li
+      data-testid='page'
+      key={page}
+      className={`page-item ${page === currentPage ? 'active' : ''}`}
+    >
       <Link href={{ pathname: '/', query: { page } }}>
         <a className='page-link'>{page}</a>
       </Link>

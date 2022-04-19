@@ -55,7 +55,11 @@ export default function HomePage() {
       <div className='row mt-2 mt-md-0'>
         {phones.map((phone) => {
           return (
-            <div key={phone.id} className={`${classes.phoneRow} py-2 col-12 overflow-hidden`}>
+            <div
+              key={phone.id}
+              className={`${classes.phoneRow} py-2 col-12 overflow-hidden`}
+              data-testid='phone'
+            >
               <div className='row py-1 gy-3 gy-md-0 d-md-flex align-items-center'>
                 <div className='col-12 col-md-3'>
                   <span className='fw-bold d-md-none'>Phone: </span>
