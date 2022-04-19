@@ -75,16 +75,15 @@ const slice = createSlice({
         console.log(action.error)
       })
 
-      .addCase(remove.fulfilled, (state, action) => {
-        const index = state.list.findIndex((p) => p.id === action.payload)
-        state.list.splice(index, 1)
+      .addCase(remove.fulfilled, (state, _action) => {
         state.totalCount -= 1
+        state.isLoading = false
       })
-      .addCase(remove.pending, (_state, _action) => {
-        // TODO: spinner
+      .addCase(remove.pending, (state, _action) => {
+        state.isLoading = true
       })
-      .addCase(remove.rejected, (_state, action) => {
-        console.log(action.error)
+      .addCase(remove.rejected, (state, _action) => {
+        state.isLoading = false
       })
 
       .addCase(add.fulfilled, (state, action) => {
