@@ -1,0 +1,9 @@
+.responsiveWidth {
+  width: 100%;
+}
+
+@media (min-width: 991px) {
+  .responsiveWidth {
+    width: 50%;
+  }
+}

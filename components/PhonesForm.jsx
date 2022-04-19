@@ -1,4 +1,5 @@
 import * as validators from '../lib/validators'
+import classes from './PhonesForm.module.css'
 import Layout from './Layout'
 import { FORM_ERROR } from 'final-form'
 import { Form, Field } from 'react-final-form'
@@ -10,7 +11,7 @@ const ignore = () => {}
 
 const phoneNumberField = () => {
   return (
-    <div className='mt-3 mb-4 w-50'>
+    <div className={`${classes.responsiveWidth} mt-3 mb-4`}>
       <Field
         name='value'
         component='input'
@@ -38,7 +39,7 @@ const phoneNumberField = () => {
 
 const monthlyPriceField = () => {
   return (
-    <div className='mb-4 w-50'>
+    <div className={`${classes.responsiveWidth} mb-4`}>
       <Field
         name='monthyPrice'
         component='input'
@@ -66,7 +67,7 @@ const monthlyPriceField = () => {
 
 const setupPriceField = () => {
   return (
-    <div className='mb-4 w-50'>
+    <div className={`${classes.responsiveWidth} mb-4`}>
       <Field
         name='setupPrice'
         component='input'
@@ -94,7 +95,7 @@ const setupPriceField = () => {
 
 const currencyField = () => {
   return (
-    <div className='mb-4 w-50'>
+    <div className={`${classes.responsiveWidth} mb-4`}>
       <Field
         name='currency'
         component='input'
@@ -162,7 +163,7 @@ export default function PhonesForm({ initialValues, action, title }) {
                 {monthlyPriceField()}
                 {setupPriceField()}
                 {currencyField()}
-                <div className='d-flex justify-content-between w-50'>
+                <div className={`${classes.responsiveWidth} d-flex justify-content-between`}>
                   {form.submitting ? (
                     <button className='btn btn-primary' type='button' disabled>
                       <span
