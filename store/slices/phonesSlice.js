@@ -28,9 +28,17 @@ export const selectCurrentPhone = (rootState) => {
   return rootState.phones.form.currentPhone
 }
 
-export const fetch = createAsyncThunk('phones/fetch', ({ page }) => {
-  return api.fetchNumbers({ page, perPage: PER_PAGE })
-})
+export const fetch = createAsyncThunk(
+  'phones/fetch',
+  ({ page }) => {
+    return api.fetchNumbers({ page, perPage: PER_PAGE })
+  },
+  {
+    condition: ({ isPolling }, { getState }) => {
+      return !(isPolling && getState().phones.isLoading)
+    }
+  }
+)
 
 export const add = createAsyncThunk('phones/add', (phone) => {
   return api.addNumber(phone)

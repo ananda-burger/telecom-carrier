@@ -1,28 +1,31 @@
 import Link from 'next/link'
+import Pagination from '../components/Pagination'
 import * as phonesSlice from '../store/slices/phonesSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+const parsePage = (page) => {
+  return Math.max(1, parseInt(page, 10) || 1)
+}
+
 export default function HomePage() {
   const phones = useSelector(phonesSlice.selectPhones)
-  const nPages = useSelector(phonesSlice.selectNumberOfPages)
   const dispatch = useDispatch()
   const router = useRouter()
   const { isReady, query } = router
-  const page = Math.min(nPages, parseInt(query.page, 10) || 1)
 
   useEffect(() => {
     if (isReady) {
-      dispatch(phonesSlice.fetch({ page }))
+      dispatch(phonesSlice.fetch({ page: parsePage(query.page) }))
       const intervalId = setInterval(() => {
-        dispatch(phonesSlice.fetch({ page }))
+        dispatch(phonesSlice.fetch({ page: parsePage(query.page), isPolling: true }))
       }, 10000)
       return function cleanup() {
         clearInterval(intervalId)
       }
     }
-  }, [isReady, page])
+  }, [isReady, query.page])
 
   const openDeleteConfirmation = (id) => {
     if (confirm('Are you sure you want to delete this phone number?')) {
@@ -76,6 +79,7 @@ export default function HomePage() {
           })}
         </tbody>
       </table>
+      <Pagination />
     </>
   )
 }
