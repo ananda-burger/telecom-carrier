@@ -1,3 +1,4 @@
+import * as validators from '../lib/validators'
 import Layout from './Layout'
 import { FORM_ERROR } from 'final-form'
 import { Form, Field } from 'react-final-form'
@@ -7,14 +8,6 @@ import { useRouter } from 'next/router'
 
 const ignore = () => {}
 
-const required = (value) => (value ? undefined : 'Required field')
-const mustBeNumber = (value) => (isNaN(value) ? 'Price must be a number' : undefined)
-
-const composeValidators =
-  (...validators) =>
-  (value) =>
-    validators.reduce((error, validator) => error || validator(value), undefined)
-
 const phoneNumberField = () => {
   return (
     <div className='mt-3 mb-4 w-50'>
@@ -23,7 +16,7 @@ const phoneNumberField = () => {
         component='input'
         type='text'
         placeholder='Phone number'
-        validate={required}
+        validate={validators.required}
       >
         {({ input, meta }) => (
           <div>
@@ -51,7 +44,7 @@ const monthlyPriceField = () => {
         component='input'
         type='text'
         placeholder='Monthly Price'
-        validate={composeValidators(required, mustBeNumber)}
+        validate={validators.compose(validators.required, validators.mustBeNumber)}
       >
         {({ input, meta }) => (
           <div>
@@ -79,7 +72,7 @@ const setupPriceField = () => {
         component='input'
         type='text'
         placeholder='Setup Price'
-        validate={composeValidators(required, mustBeNumber)}
+        validate={validators.compose(validators.required, validators.mustBeNumber)}
       >
         {({ input, meta }) => (
           <div>
@@ -107,7 +100,7 @@ const currencyField = () => {
         component='input'
         type='text'
         placeholder='Price currency'
-        validate={required}
+        validate={validators.required}
       >
         {({ input, meta }) => (
           <div>
