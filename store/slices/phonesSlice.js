@@ -7,6 +7,7 @@ const initialState = {
   list: [],
   totalCount: 0,
   isLoading: false,
+  isPolling: false,
   form: {
     currentPhone: {}
   }
@@ -34,8 +35,20 @@ export const fetch = createAsyncThunk(
     return api.fetchNumbers({ page, perPage: PER_PAGE })
   },
   {
-    condition: ({ isPolling }, { getState }) => {
-      return !(isPolling && getState().phones.isLoading)
+    condition: (_, { getState }) => {
+      return !getState().phones.isLoading
+    }
+  }
+)
+
+export const poll = createAsyncThunk(
+  'phones/poll',
+  ({ page }) => {
+    return api.fetchNumbers({ page, perPage: PER_PAGE })
+  },
+  {
+    condition: (_, { getState }) => {
+      return !getState().phones.isPolling
     }
   }
 )
@@ -48,8 +61,10 @@ export const edit = createAsyncThunk('phones/edit', (phone) => {
   return api.editNumber(phone)
 })
 
-export const remove = createAsyncThunk('phones/remove', (id) => {
-  return api.removeNumbers(id)
+export const remove = createAsyncThunk('phones/remove', async ({ id, page }, { dispatch }) => {
+  const result = await api.removeNumbers(id)
+  dispatch(fetch({ page }))
+  return result
 })
 
 export const find = createAsyncThunk('phones/find', (id) => {
@@ -70,20 +85,24 @@ const slice = createSlice({
       .addCase(fetch.pending, (state, _action) => {
         state.isLoading = true
       })
-      .addCase(fetch.rejected, (state, action) => {
+      .addCase(fetch.rejected, (state, _action) => {
         state.isLoading = false
-        console.log(action.error)
+      })
+
+      .addCase(poll.fulfilled, (state, action) => {
+        state.list = action.payload.phones
+        state.totalCount = action.payload.totalCount
+        state.isPolling = false
+      })
+      .addCase(poll.pending, (state, _action) => {
+        state.isPolling = true
+      })
+      .addCase(poll.rejected, (state, _action) => {
+        state.isPolling = false
       })
 
       .addCase(remove.fulfilled, (state, _action) => {
         state.totalCount -= 1
-        state.isLoading = false
-      })
-      .addCase(remove.pending, (state, _action) => {
-        state.isLoading = true
-      })
-      .addCase(remove.rejected, (state, _action) => {
-        state.isLoading = false
       })
 
       .addCase(add.fulfilled, (state, action) => {

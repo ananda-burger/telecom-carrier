@@ -19,7 +19,7 @@ export default function HomePage() {
     if (isReady) {
       dispatch(phonesSlice.fetch({ page: parsePage(query.page) }))
       const intervalId = setInterval(() => {
-        dispatch(phonesSlice.fetch({ page: parsePage(query.page), isPolling: true }))
+        dispatch(phonesSlice.poll({ page: parsePage(query.page) }))
       }, 10000)
       return function cleanup() {
         clearInterval(intervalId)
@@ -29,7 +29,7 @@ export default function HomePage() {
 
   const openDeleteConfirmation = (id) => {
     if (confirm('Are you sure you want to delete this phone number?')) {
-      dispatch(phonesSlice.remove(id))
+      dispatch(phonesSlice.remove({ id, page: parsePage(query.page) }))
     }
   }
 
