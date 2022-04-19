@@ -132,7 +132,6 @@ export default function PhonesForm({ formInitialValues, action, title }) {
   const currentPhone = useSelector(phonesSlice.selectCurrentPhone)
   const router = useRouter()
   const dispatch = useDispatch()
-  const capitalizedTitle = title[0].toUpperCase() + title.slice(1).toLowerCase()
 
   const onSubmit = (phone) => {
     return dispatch(action(phone))
@@ -146,7 +145,7 @@ export default function PhonesForm({ formInitialValues, action, title }) {
   }
 
   const formValues = () => {
-    if (capitalizedTitle === 'Edit' && !formInitialValues) {
+    if (title === 'Edit' && !formInitialValues) {
       return currentPhone
     } else {
       return formInitialValues
@@ -154,14 +153,14 @@ export default function PhonesForm({ formInitialValues, action, title }) {
   }
 
   useEffect(() => {
-    if (router.isReady && capitalizedTitle === 'Edit' && !formInitialValues) {
+    if (router.isReady && title === 'Edit' && !formInitialValues) {
       dispatch(phonesSlice.find(router.query.id))
     }
   }, [router.isReady])
 
   return (
     <Layout>
-      <h1 className='display-6'>{`${capitalizedTitle} number for sale`}</h1>
+      <h1 className='display-6'>{`${title} number for sale`}</h1>
 
       <Form
         onSubmit={onSubmit}
@@ -202,7 +201,7 @@ export default function PhonesForm({ formInitialValues, action, title }) {
                       className='btn btn-primary'
                       disabled={form.submitting || form.pristine || form.hasValidationErrors}
                     >
-                      {capitalizedTitle}
+                      {title}
                     </button>
                   )}
                   <button
