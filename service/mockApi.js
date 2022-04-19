@@ -10,13 +10,20 @@ const write = (phones) => {
 }
 
 const read = () => {
-  return JSON.parse(localStorage.getItem('phones')).sort((a, b) => a.id - b.id) || []
+  const phones = localStorage.getItem('phones')
+  if (phones) {
+    return JSON.parse(phones).sort((a, b) => a.id - b.id) || []
+  }
+  return []
 }
 
 const nextId = () => {
   const phones = read()
-  const latestId = phones[phones.length - 1].id
-  return latestId + 1
+  if (phones.length) {
+    const latestId = phones[phones.length - 1].id
+    return latestId + 1
+  }
+  return 1
 }
 
 const fetchNumbers = ({ page, perPage }) => {
