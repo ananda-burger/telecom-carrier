@@ -1,8 +1,8 @@
-import * as phonesSlice from '../store/slices/phonesSlice'
+import * as phonesSlice from '@/store/slices/phonesSlice'
 import Link from 'next/link'
+import { range } from '@/lib/util'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { range } from '../lib/util'
 
 export const pagesRange = ({ page, nPages }) => {
   const offset = 5

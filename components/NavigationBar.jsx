@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import HomeIcon from './icons/HomeIcon'
+import HomeIcon from '@/components/icons/HomeIcon'
 
 export default function NavigationBar() {
   return (

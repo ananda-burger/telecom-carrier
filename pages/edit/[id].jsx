@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as phonesSlice from '../../store/slices/phonesSlice'
-import PhonesForm from '../../components/PhonesForm'
+import * as phonesSlice from '@/store/slices/phonesSlice'
+import PhonesForm from '@/components/PhonesForm'
 
 const Edit = () => {
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
-import { store } from '../store/config'
+import { store } from '@/store/config'
 
 function App({ Component, pageProps }) {
   return (

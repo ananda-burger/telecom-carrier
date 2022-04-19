@@ -1,4 +1,4 @@
-import { pagesRange } from '../../components/Pagination'
+import { pagesRange } from '@/components/Pagination'
 
 describe('Pagination', () => {
   describe('pagesRange', () => {

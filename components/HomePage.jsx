@@ -1,10 +1,10 @@
+import * as phonesSlice from '@/store/slices/phonesSlice'
 import Link from 'next/link'
-import Pagination from '../components/Pagination'
-import * as phonesSlice from '../store/slices/phonesSlice'
-import classes from './HomePage.module.css'
-import { useSelector, useDispatch } from 'react-redux'
+import Pagination from '@/components/Pagination'
+import classes from '@/components/HomePage.module.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
 
 const parsePage = (page) => {
   return Math.max(1, parseInt(page, 10) || 1)

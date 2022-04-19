@@ -1,6 +1,6 @@
-import NavigationBar from './NavigationBar'
-import styles from './Layout.module.css'
-import * as phonesSlice from '../store/slices/phonesSlice'
+import * as phonesSlice from '@/store/slices/phonesSlice'
+import NavigationBar from '@/components/NavigationBar'
+import styles from '@/components/Layout.module.css'
 import { useSelector } from 'react-redux'
 
 export default function Layout({ children }) {

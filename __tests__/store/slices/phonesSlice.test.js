@@ -1,4 +1,4 @@
-import * as slice from '../../../store/slices/phonesSlice.js'
+import * as slice from '@/store/slices/phonesSlice.js'
 
 describe('phonesSlice', () => {
   it('Selects phones', () => {

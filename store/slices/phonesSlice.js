@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import * as api from '../../api/didNumbers'
+import * as api from '@/api/didNumbers'
 
 const PER_PAGE = 15
 

@@ -1,4 +1,4 @@
-import * as validators from '../../lib/validators'
+import * as validators from '@/lib/validators'
 
 describe('validators', () => {
   describe('.required', () => {

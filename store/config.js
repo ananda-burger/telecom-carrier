@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { reducer as phonesReducer } from './slices/phonesSlice'
+import { reducer as phonesReducer } from '@/store/slices/phonesSlice'
 
 export const store = configureStore({
   reducer: {
