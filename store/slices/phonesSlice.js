@@ -88,7 +88,9 @@ const slice = createSlice({
       })
 
       .addCase(add.fulfilled, (state, action) => {
-        state.list.push(action.payload)
+        if (state.list.length < PER_PAGE) {
+          state.list.push(action.payload)
+        }
         state.totalCount += 1
       })
 
