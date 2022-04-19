@@ -1,10 +1,9 @@
-import { Form, Field } from 'react-final-form'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import * as phonesSlice from '../store/slices/phonesSlice'
 import Layout from './Layout'
 import { FORM_ERROR } from 'final-form'
+import { Form, Field } from 'react-final-form'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const ignore = () => {}
 
@@ -128,8 +127,7 @@ const currencyField = () => {
   )
 }
 
-export default function PhonesForm({ initialValues, action, title, isEditing }) {
-  const currentPhone = useSelector(phonesSlice.selectCurrentPhone)
+export default function PhonesForm({ initialValues, action, title }) {
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -144,26 +142,13 @@ export default function PhonesForm({ initialValues, action, title, isEditing }) 
       })
   }
 
-  const formValues = () => {
-    if (isEditing && !initialValues) {
-      return currentPhone
-    }
-    return initialValues
-  }
-
-  useEffect(() => {
-    if (router.isReady && isEditing && !initialValues) {
-      dispatch(phonesSlice.find(router.query.id))
-    }
-  }, [router.isReady])
-
   return (
     <Layout>
       <h1 className='display-6'>{`${title} number for sale`}</h1>
 
       <Form
         onSubmit={onSubmit}
-        initialValues={formValues()}
+        initialValues={initialValues}
         render={(form) => {
           useEffect(() => {
             if (router.isReady && form.submitSucceeded) {

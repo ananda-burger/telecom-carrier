@@ -8,13 +8,15 @@ const initialState = {
   totalCount: 0,
   isLoading: false,
   isPolling: false,
-  form: {
-    currentPhone: {}
-  }
+  currentPhone: {}
 }
 
 export const selectPhones = (rootState) => {
   return rootState.phones.list
+}
+
+export const selectCurrentPhone = (rootState) => {
+  return rootState.phones.currentPhone
 }
 
 export const selectIsLoading = (rootState) => {
@@ -23,10 +25,6 @@ export const selectIsLoading = (rootState) => {
 
 export const selectNumberOfPages = (rootState) => {
   return Math.ceil(rootState.phones.totalCount / PER_PAGE)
-}
-
-export const selectCurrentPhone = (rootState) => {
-  return rootState.phones.form.currentPhone
 }
 
 export const fetch = createAsyncThunk(
@@ -121,7 +119,7 @@ const slice = createSlice({
       })
 
       .addCase(find.fulfilled, (state, action) => {
-        state.form.currentPhone = action.payload
+        state.currentPhone = action.payload
         state.isLoading = false
       })
       .addCase(find.pending, (state, _action) => {

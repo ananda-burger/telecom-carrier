@@ -1,20 +1,25 @@
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as phonesSlice from '../../store/slices/phonesSlice'
 import PhonesForm from '../../components/PhonesForm'
 
 const Edit = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const phones = useSelector(phonesSlice.selectPhones)
-  const currentPhone = phones.find((p) => p.id === parseInt(router.query.id, 10))
+  const phone = useSelector(phonesSlice.selectCurrentPhone)
+  const id = parseInt(router.query.id, 10)
+  const existingPhone = phones.find((p) => p.id === id)
+
+  useEffect(() => {
+    if (router.isReady && !existingPhone) {
+      dispatch(phonesSlice.find(router.query.id))
+    }
+  }, [router.isReady])
 
   return (
-    <PhonesForm
-      initialValues={currentPhone}
-      action={phonesSlice.edit}
-      isEditing={true}
-      title='Edit'
-    />
+    <PhonesForm initialValues={existingPhone || phone} action={phonesSlice.edit} title='Edit' />
   )
 }
 
