@@ -28,9 +28,10 @@ export default function HomePage() {
     }
   }, [isReady, query.page])
 
-  const openDeleteConfirmation = (id) => {
-    if (confirm('Are you sure you want to delete this phone number?')) {
-      dispatch(phonesSlice.remove({ id, page: parsePage(query.page) }))
+  const openDeleteConfirmation = (phone) => {
+    const msg = `Are you sure you want to delete the DID number ${phone.value}? This operation is irreversible.`
+    if (confirm(msg)) {
+      dispatch(phonesSlice.remove({ id: phone.id, page: parsePage(query.page) }))
     }
   }
 
@@ -76,7 +77,7 @@ export default function HomePage() {
                   </Link>
                   <button
                     className='btn ms-2 btn-secondary'
-                    onClick={() => openDeleteConfirmation(parseInt(phone.id, 10))}
+                    onClick={() => openDeleteConfirmation(phone)}
                   >
                     Delete
                   </button>
