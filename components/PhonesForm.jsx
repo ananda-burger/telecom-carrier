@@ -1,10 +1,9 @@
+import * as phonesSlice from '@/store/slices/phonesSlice'
 import * as validators from '@/lib/validators'
-import Layout from '@/components/Layout'
 import classes from '@/components/PhonesForm.module.css'
 import { FORM_ERROR } from 'final-form'
 import { Form, Field } from 'react-final-form'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 const ignore = () => {}
@@ -121,9 +120,10 @@ const currencyField = () => {
   )
 }
 
-export default function PhonesForm({ initialValues, action, title }) {
+export default function PhonesForm({ initialValues, action, buttonText }) {
   const router = useRouter()
   const dispatch = useDispatch()
+  const submitSucceeded = useSelector(phonesSlice.selectSubmitSucceeded)
 
   const onSubmit = (phone) => {
     return dispatch(action(phone))
@@ -136,66 +136,62 @@ export default function PhonesForm({ initialValues, action, title }) {
       })
   }
 
+  if (router.isReady && submitSucceeded) {
+    router.back()
+    dispatch(phonesSlice.resetForm())
+    return
+  }
+
   return (
-    <Layout>
-      <h1 className='display-6'>{`${title} number for sale`}</h1>
+    <Form
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      render={(form) => {
+        return (
+          <>
+            {form.submitError && (
+              <div className='w-50 alert alert-danger text-center'>
+                <span>An error has occurred:</span> {form.submitError.message}
+              </div>
+            )}
 
-      <Form
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        render={(form) => {
-          useEffect(() => {
-            if (router.isReady && form.submitSucceeded) {
-              router.back()
-            }
-          }, [router.isReady, form.submitSucceeded])
-
-          return (
-            <>
-              {form.submitError && (
-                <div className='w-50 alert alert-danger text-center'>
-                  <span>An error has occurred:</span> {form.submitError.message}
-                </div>
-              )}
-
-              <form onSubmit={form.handleSubmit}>
-                {phoneNumberField()}
-                {monthlyPriceField()}
-                {setupPriceField()}
-                {currencyField()}
-                <div className={`${classes.responsiveWidth} d-flex justify-content-between`}>
-                  {form.submitting ? (
-                    <button className='btn btn-primary' type='button' disabled>
-                      <span
-                        className='spinner-border spinner-border-sm'
-                        role='status'
-                        aria-hidden='true'
-                      ></span>
-                      <span className='visually-hidden'>Loading submission...</span>
-                    </button>
-                  ) : (
-                    <button
-                      type='submit'
-                      className='btn btn-primary'
-                      disabled={form.submitting || form.pristine || form.hasValidationErrors}
-                    >
-                      {title}
-                    </button>
-                  )}
-                  <button
-                    type='button'
-                    onClick={() => router.back()}
-                    className='btn btn-secondary '
-                    disabled={form.submitting}
-                  >
-                    Cancel
+            <form onSubmit={form.handleSubmit}>
+              {phoneNumberField()}
+              {monthlyPriceField()}
+              {setupPriceField()}
+              {currencyField()}
+              <div className={`${classes.responsiveWidth} d-flex justify-content-between`}>
+                {form.submitting ? (
+                  <button className='btn btn-primary' type='button' disabled>
+                    <span
+                      className='spinner-border spinner-border-sm'
+                      role='status'
+                      aria-hidden='true'
+                    ></span>
+                    <span className='visually-hidden'>Loading submission...</span>
                   </button>
-                </div>
-              </form>
-            </>
-          )
-        }}
-      />
-    </Layout>
+                ) : (
+                  <button
+                    type='submit'
+                    className='btn btn-primary'
+                    disabled={form.submitting || form.pristine || form.hasValidationErrors}
+                  >
+                    {buttonText}
+                  </button>
+                )}
+                <button
+                  type='button'
+                  onClick={() => router.back()}
+                  className='btn btn-secondary '
+                  disabled={form.submitting}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </>
+        )
+      }}
+    />
   )
 }

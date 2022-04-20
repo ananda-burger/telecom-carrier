@@ -40,7 +40,7 @@ export default function HomePage() {
     <>
       <div className='d-flex justify-content-between'>
         <h1 className='display-6 m-0'>Numbers for sale</h1>
-        <Link href='/add'>
+        <Link href='/add' passHref>
           <button className='btn btn-primary fw-bold'>Add</button>
         </Link>
       </div>

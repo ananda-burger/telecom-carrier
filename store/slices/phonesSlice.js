@@ -8,11 +8,16 @@ const initialState = {
   totalCount: 0,
   isLoading: false,
   isPolling: false,
-  currentPhone: {}
+  currentPhone: null,
+  submitSucceeded: false
 }
 
 export const selectPhones = (rootState) => {
   return rootState.phones.list
+}
+
+export const selectSubmitSucceeded = (rootState) => {
+  return rootState.phones.submitSucceeded
 }
 
 export const selectCurrentPhone = (rootState) => {
@@ -72,7 +77,11 @@ export const find = createAsyncThunk('phones/find', (id) => {
 const slice = createSlice({
   name: 'phonesSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    resetForm: (state, _action) => {
+      state.submitSucceeded = false
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetch.fulfilled, (state, action) => {
@@ -104,6 +113,8 @@ const slice = createSlice({
       })
 
       .addCase(add.fulfilled, (state, action) => {
+        state.submitSucceeded = true
+
         if (state.list.length < PER_PAGE) {
           state.list.push(action.payload)
         }
@@ -111,6 +122,8 @@ const slice = createSlice({
       })
 
       .addCase(edit.fulfilled, (state, { payload }) => {
+        state.submitSucceeded = true
+
         const index = state.list.findIndex((p) => p.id === payload.id)
 
         if (index >= 0) {
@@ -130,5 +143,7 @@ const slice = createSlice({
       })
   }
 })
+
+export const { resetForm } = slice.actions
 
 export const { reducer } = slice
